@@ -1,20 +1,17 @@
-﻿using System.IO;
-
-namespace Advent_of_Code.DataSources
+﻿namespace Advent_of_Code.DataSources
 {
-    public static class Day6Data
+    public class Day6Data : DayData
     {
-        public static string[] GetTestData()
+        public Day6Data() : base(6)
         {
-            return new string[]
+        }
+
+        public override string[] GetTestData()
+        {
+            return new[]
             {
                 "3,4,3,1,2"
             };
-        }
-
-        public static string[] GetRealData()
-        {
-            return File.ReadAllLines(@"..\..\RawInputs\Day 6\input.mos");
         }
     }
 }

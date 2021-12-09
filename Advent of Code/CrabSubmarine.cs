@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Advent_of_Code
 {
@@ -14,12 +12,12 @@ namespace Advent_of_Code
 
     public class CrabSubmarine
     {
-        private List<int> Positions { get; }
-
         public CrabSubmarine(List<int> positions)
         {
             Positions = positions;
         }
+
+        private List<int> Positions { get; }
 
         private SubmarineFuelResult GetFuelForPosition(int position)
         {
@@ -36,13 +34,10 @@ namespace Advent_of_Code
             var furthest = Positions.Max();
 
             SubmarineFuelResult bestResult = null;
-            for (int i = closest; i <= furthest; i++)
+            for (var i = closest; i <= furthest; i++)
             {
                 var result = useMethod2 ? GetFuelForPosition2(i) : GetFuelForPosition(i);
-                if (bestResult == null || result.FuelUsed < bestResult.FuelUsed)
-                {
-                    bestResult = result;
-                }
+                if (bestResult == null || result.FuelUsed < bestResult.FuelUsed) bestResult = result;
             }
 
             return bestResult;
@@ -57,15 +52,15 @@ namespace Advent_of_Code
             };
         }
 
+        private int TriangularNumber(int n)
+        {
+            return n * (n + 1) / 2;
+        }
+
         private int GetChangeCost(int startingPosition, int desiredPosition)
         {
             var steps = Math.Abs(startingPosition - desiredPosition);
-            var extraStepCost = 0;
-            for (int i = 2; i <= steps; i++)
-            {
-                extraStepCost += (i - 1);
-            }
-            return steps + extraStepCost;
+            return TriangularNumber(steps);
         }
     }
 }

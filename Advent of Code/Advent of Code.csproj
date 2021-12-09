@@ -51,8 +51,20 @@
     <Compile Include="DataSources\Day7Data.cs" />
     <Compile Include="DataSources\Day8Data.cs" />
     <Compile Include="DataSources\Day9Data.cs" />
+    <Compile Include="DataSources\DayData.cs" />
+    <Compile Include="DayRunners\Day1Runner.cs" />
+    <Compile Include="DayRunners\Day2Runner.cs" />
+    <Compile Include="DayRunners\Day3Runner.cs" />
+    <Compile Include="DayRunners\Day4Runner.cs" />
+    <Compile Include="DayRunners\Day5Runner.cs" />
+    <Compile Include="DayRunners\Day6Runner.cs" />
+    <Compile Include="DayRunners\Day7Runner.cs" />
+    <Compile Include="DayRunners\Day8Runner.cs" />
+    <Compile Include="DayRunners\Day9Runner.cs" />
+    <Compile Include="DayRunners\DayRunner.cs" />
     <Compile Include="LanternFishSchool.cs" />
     <Compile Include="LavaTubeMap.cs" />
+    <Compile Include="OutputWriter.cs" />
     <Compile Include="Parsers\Day5Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +86,7 @@
     <Content Include="RawInputs\Day 8\input.mos" />
     <Content Include="RawInputs\Day 9\input.mos" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

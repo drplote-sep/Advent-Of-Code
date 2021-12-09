@@ -7,3 +7,6 @@ c:\users\drplote\documents\visual studio 2015\Projects\Advent of Code\Advent of 
 C:\Users\drplote\Documents\Visual Studio 2015\Projects\Advent-Of-Code\Advent of Code\bin\Debug\Advent of Code.exe.config
 C:\Users\drplote\Documents\Visual Studio 2015\Projects\Advent-Of-Code\Advent of Code\obj\Debug\Advent of Code.exe
 C:\Users\drplote\Documents\Visual Studio 2015\Projects\Advent-Of-Code\Advent of Code\obj\Debug\Advent of Code.pdb
+C:\Users\drplote\Documents\Visual Studio 2015\Projects\Advent-Of-Code\Advent of Code\obj\Debug\Advent of Code.csprojResolveAssemblyReference.cache
+C:\Users\drplote\Documents\Visual Studio 2015\Projects\Advent-Of-Code\Advent of Code\bin\Debug\Advent of Code.exe
+C:\Users\drplote\Documents\Visual Studio 2015\Projects\Advent-Of-Code\Advent of Code\bin\Debug\Advent of Code.pdb

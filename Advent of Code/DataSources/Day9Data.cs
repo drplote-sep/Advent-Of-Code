@@ -1,12 +1,14 @@
-﻿using System.IO;
-
-namespace Advent_of_Code.DataSources
+﻿namespace Advent_of_Code.DataSources
 {
-    public static class Day9Data
+    public class Day9Data : DayData
     {
-        public static string[] GetTestData()
+        public Day9Data() : base(9)
         {
-            return new string[]
+        }
+
+        public override string[] GetTestData()
+        {
+            return new[]
             {
                 "2199943210",
                 "3987894921",
@@ -14,11 +16,6 @@ namespace Advent_of_Code.DataSources
                 "8767896789",
                 "9899965678"
             };
-        }
-
-        public static string[] GetRealData()
-        {
-            return File.ReadAllLines(@"..\..\RawInputs\Day 9\input.mos");
         }
     }
 }

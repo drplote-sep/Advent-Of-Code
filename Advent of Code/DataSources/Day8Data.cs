@@ -1,12 +1,14 @@
-﻿using System.IO;
-
-namespace Advent_of_Code.DataSources
+﻿namespace Advent_of_Code.DataSources
 {
-    public static class Day8Data
+    public class Day8Data : DayData
     {
-        public static string[] GetTestData()
+        public Day8Data() : base(8)
         {
-            return new string[]
+        }
+
+        public override string[] GetTestData()
+        {
+            return new[]
             {
                 "be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe",
                 "edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec | fcgedb cgb dgebacf gc",
@@ -19,11 +21,6 @@ namespace Advent_of_Code.DataSources
                 "egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb",
                 "gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce"
             };
-        }
-
-        public static string[] GetRealData()
-        {
-            return File.ReadAllLines(@"..\..\RawInputs\Day 8\input.mos");
         }
     }
 }

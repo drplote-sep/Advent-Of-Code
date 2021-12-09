@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Advent_of_Code
 {
@@ -25,33 +23,40 @@ namespace Advent_of_Code
 
     public class SevenSegmentDisplay
     {
-        private static HashSet<DisplayLED> Number0 = new HashSet<DisplayLED>
+        private static readonly HashSet<DisplayLED> Number0 = new HashSet<DisplayLED>
             {DisplayLED.A, DisplayLED.B, DisplayLED.C, DisplayLED.E, DisplayLED.F, DisplayLED.G};
 
         private static HashSet<DisplayLED> Number1 = new HashSet<DisplayLED> {DisplayLED.C, DisplayLED.F};
 
-        private static HashSet<DisplayLED> Number2 = new HashSet<DisplayLED> {DisplayLED.A, DisplayLED.C, DisplayLED.D, DisplayLED.E, DisplayLED.G };
+        private static readonly HashSet<DisplayLED> Number2 = new HashSet<DisplayLED>
+            {DisplayLED.A, DisplayLED.C, DisplayLED.D, DisplayLED.E, DisplayLED.G};
 
-        private static HashSet<DisplayLED> Number3 = new HashSet<DisplayLED> { DisplayLED.A, DisplayLED.C, DisplayLED.D, DisplayLED.F, DisplayLED.G };
+        private static readonly HashSet<DisplayLED> Number3 = new HashSet<DisplayLED>
+            {DisplayLED.A, DisplayLED.C, DisplayLED.D, DisplayLED.F, DisplayLED.G};
 
-        private static HashSet<DisplayLED> Number4 = new HashSet<DisplayLED> { DisplayLED.B, DisplayLED.C, DisplayLED.D, DisplayLED.F};
+        private static HashSet<DisplayLED> Number4 = new HashSet<DisplayLED>
+            {DisplayLED.B, DisplayLED.C, DisplayLED.D, DisplayLED.F};
 
-        private static HashSet<DisplayLED> Number5 = new HashSet<DisplayLED> { DisplayLED.A, DisplayLED.B, DisplayLED.D, DisplayLED.F, DisplayLED.G };
+        private static readonly HashSet<DisplayLED> Number5 = new HashSet<DisplayLED>
+            {DisplayLED.A, DisplayLED.B, DisplayLED.D, DisplayLED.F, DisplayLED.G};
 
-        private static HashSet<DisplayLED> Number6 = new HashSet<DisplayLED> { DisplayLED.A, DisplayLED.B, DisplayLED.D, DisplayLED.E, DisplayLED.F, DisplayLED.G };
+        private static readonly HashSet<DisplayLED> Number6 = new HashSet<DisplayLED>
+            {DisplayLED.A, DisplayLED.B, DisplayLED.D, DisplayLED.E, DisplayLED.F, DisplayLED.G};
 
-        private static HashSet<DisplayLED> Number7 = new HashSet<DisplayLED> { DisplayLED.A, DisplayLED.C, DisplayLED.F };
+        private static HashSet<DisplayLED> Number7 = new HashSet<DisplayLED> {DisplayLED.A, DisplayLED.C, DisplayLED.F};
 
-        private static HashSet<DisplayLED> Number8 = new HashSet<DisplayLED> { DisplayLED.A, DisplayLED.B, DisplayLED.C, DisplayLED.D, DisplayLED.E, DisplayLED.F, DisplayLED.G };
+        private static HashSet<DisplayLED> Number8 = new HashSet<DisplayLED>
+            {DisplayLED.A, DisplayLED.B, DisplayLED.C, DisplayLED.D, DisplayLED.E, DisplayLED.F, DisplayLED.G};
 
-        private static HashSet<DisplayLED> Number9 = new HashSet<DisplayLED> { DisplayLED.A, DisplayLED.B, DisplayLED.C, DisplayLED.D, DisplayLED.F, DisplayLED.G };
+        private static readonly HashSet<DisplayLED> Number9 = new HashSet<DisplayLED>
+            {DisplayLED.A, DisplayLED.B, DisplayLED.C, DisplayLED.D, DisplayLED.F, DisplayLED.G};
 
-        private List<SevenSegmentDisplayEntry> Entries { get; set; }
-
-        public SevenSegmentDisplay(string [] inputData)
+        public SevenSegmentDisplay(string[] inputData)
         {
             ParseInputs(inputData);
         }
+
+        private List<SevenSegmentDisplayEntry> Entries { get; set; }
 
         private void ParseInputs(string[] inputData)
         {
@@ -63,7 +68,7 @@ namespace Advent_of_Code
                 Entries.Add(new SevenSegmentDisplayEntry
                 {
                     Inputs = inputSplit[0].Split(' ').ToList(),
-                    Outputs = inputSplit[1].Split(' ').ToList(),
+                    Outputs = inputSplit[1].Split(' ').ToList()
                 });
             }
         }
@@ -110,7 +115,8 @@ namespace Advent_of_Code
             mapping[DisplayLED.A] = chars7.Except(chars1).Single();
 
             var chars4Minus1 = chars4.Except(chars1).ToList();
-            var chars0 = e.Inputs.Where(i => i.Length == 6 && (!i.Contains(chars4Minus1[0]) || !i.Contains(chars4Minus1[1])))
+            var chars0 = e.Inputs
+                .Where(i => i.Length == 6 && (!i.Contains(chars4Minus1[0]) || !i.Contains(chars4Minus1[1])))
                 .SelectMany(s => s).Distinct().ToList();
 
             mapping[DisplayLED.D] = chars4.Except(chars0).Single();
@@ -121,7 +127,7 @@ namespace Advent_of_Code
                 .SelectMany(s => s).Distinct().ToList();
 
             mapping[DisplayLED.C] = chars1.Except(chars6).Single();
-            mapping[DisplayLED.F] = chars1.Except(new []{mapping[DisplayLED.C]}).Single();
+            mapping[DisplayLED.F] = chars1.Except(new[] {mapping[DisplayLED.C]}).Single();
 
             var chars9 = e.Inputs
                 .Where(i => i.Length == 6 && i.Contains(mapping[DisplayLED.D]))
@@ -145,11 +151,8 @@ namespace Advent_of_Code
 
             var reversedMapping = mapping.ToDictionary(x => x.Value, x => x.Key);
 
-            List<int> outputDigits = new List<int>();
-            foreach (var digitString in e.Outputs)
-            {
-                outputDigits.Add(DecodeDigit(reversedMapping, digitString));
-            }
+            var outputDigits = new List<int>();
+            foreach (var digitString in e.Outputs) outputDigits.Add(DecodeDigit(reversedMapping, digitString));
 
             var outputString = string.Join(string.Empty, outputDigits);
             return Convert.ToInt32(outputString);
@@ -157,11 +160,8 @@ namespace Advent_of_Code
 
         private int DecodeDigit(Dictionary<char, DisplayLED> reversedMapping, string digitString)
         {
-            HashSet<DisplayLED> litLEDs = new HashSet<DisplayLED>();
-            foreach (var c in digitString)
-            {
-                litLEDs.Add(reversedMapping[c]);
-            }
+            var litLEDs = new HashSet<DisplayLED>();
+            foreach (var c in digitString) litLEDs.Add(reversedMapping[c]);
 
             switch (litLEDs.Count)
             {
@@ -179,9 +179,9 @@ namespace Advent_of_Code
                         return 3;
                     else if (litLEDs.SetEquals(Number5))
                         return 5;
-                    
+
                     throw new ArgumentException("unknown 5 length digit");
-                    
+
                 case 6:
                     // 0, 6, or 9
                     if (litLEDs.SetEquals(Number0))

@@ -1,24 +1,21 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Advent_of_Code
 {
     public class LanternFishSchool
     {
-        public int DaysPassed { get; private set; } = 0;
-        private List<long> Fish { get; set; }
         public LanternFishSchool(List<int> initialFish)
         {
             Fish = ParseFishIntoGroups(initialFish);
         }
 
+        public int DaysPassed { get; private set; }
+        private List<long> Fish { get; set; }
+
         private List<long> ParseFishIntoGroups(List<int> initialFish)
         {
             var fishList = new List<long> {0, 0, 0, 0, 0, 0, 0, 0, 0};
-            foreach (var fish in initialFish)
-            {
-                fishList[fish] = fishList[fish] + 1;
-            }
+            foreach (var fish in initialFish) fishList[fish] = fishList[fish] + 1;
 
             return fishList;
         }
@@ -26,19 +23,13 @@ namespace Advent_of_Code
         public long GetFishTotal()
         {
             long total = 0;
-            foreach (var count in Fish)
-            {
-                total += count;
-            }
+            foreach (var count in Fish) total += count;
             return total;
         }
 
         public void SwimForDays(int numDays)
         {
-            for (int i = 0; i < numDays; i++)
-            {
-                NextDay();
-            }
+            for (var i = 0; i < numDays; i++) NextDay();
         }
 
         public void NextDay()
@@ -46,8 +37,7 @@ namespace Advent_of_Code
             DaysPassed++;
 
             var newFish = new List<long> {0, 0, 0, 0, 0, 0, 0, 0, 0};
-            for (int i = 0; i < 9; i++)
-            {
+            for (var i = 0; i < 9; i++)
                 if (i == 0)
                 {
                     newFish[6] = Fish[0];
@@ -57,7 +47,6 @@ namespace Advent_of_Code
                 {
                     newFish[i - 1] = newFish[i - 1] + Fish[i];
                 }
-            }
 
             Fish = newFish;
         }
