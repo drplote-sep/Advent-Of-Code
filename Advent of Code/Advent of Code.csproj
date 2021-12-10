@@ -47,6 +47,7 @@
     <Compile Include="BingoBoard.cs" />
     <Compile Include="CrabSubmarine.cs" />
     <Compile Include="DataSources\DayData.cs" />
+    <Compile Include="DayRunners\Day10Runner.cs" />
     <Compile Include="DayRunners\Day1Runner.cs" />
     <Compile Include="DayRunners\Day2Runner.cs" />
     <Compile Include="DayRunners\Day3Runner.cs" />
@@ -71,6 +72,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="RawInputs\Day 10\input.mos" />
     <Content Include="RawInputs\Day 1\input.mos" />
     <Content Include="RawInputs\Day 2\input.mos" />
     <Content Include="RawInputs\Day 3\input.mos" />

@@ -28,7 +28,8 @@ namespace Advent_of_Code
                 new Day6Runner(new DayData(6)),
                 new Day7Runner(new DayData(7)),
                 new Day8Runner(new DayData(8)),
-                new Day9Runner(new DayData(9))
+                new Day9Runner(new DayData(9)),
+                new Day10Runner(new DayData(10))
             };
         }
     }
