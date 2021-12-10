@@ -10,7 +10,10 @@ namespace Advent_of_Code
         {
             OutputWriter.WriteHeader("Advent of Code 2021");
 
-            foreach (var dayRunner in GetDayRunners()) dayRunner.Go();
+            foreach (var dayRunner in GetDayRunners())
+            {
+                dayRunner.Go();
+            }
         }
 
         private static List<DayRunner> GetDayRunners()
@@ -21,11 +24,11 @@ namespace Advent_of_Code
                 new Day2Runner(new DayData(2)),
                 new Day3Runner(new DayData(3)),
                 new Day4Runner(new DayData(4)),
-                new Day5Runner(new Day5Data()),
-                new Day6Runner(new Day6Data()),
-                new Day7Runner(new Day7Data()),
-                new Day8Runner(new Day8Data()),
-                new Day9Runner(new Day9Data())
+                new Day5Runner(new DayData(5)),
+                new Day6Runner(new DayData(6)),
+                new Day7Runner(new DayData(7)),
+                new Day8Runner(new DayData(8)),
+                new Day9Runner(new DayData(9))
             };
         }
     }

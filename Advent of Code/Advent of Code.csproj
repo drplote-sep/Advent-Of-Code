@@ -46,11 +46,6 @@
   <ItemGroup>
     <Compile Include="BingoBoard.cs" />
     <Compile Include="CrabSubmarine.cs" />
-    <Compile Include="DataSources\Day5Data.cs" />
-    <Compile Include="DataSources\Day6Data.cs" />
-    <Compile Include="DataSources\Day7Data.cs" />
-    <Compile Include="DataSources\Day8Data.cs" />
-    <Compile Include="DataSources\Day9Data.cs" />
     <Compile Include="DataSources\DayData.cs" />
     <Compile Include="DayRunners\Day1Runner.cs" />
     <Compile Include="DayRunners\Day2Runner.cs" />
