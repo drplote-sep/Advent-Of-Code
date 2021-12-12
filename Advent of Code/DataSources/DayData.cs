@@ -5,6 +5,53 @@ namespace Advent_of_Code.DataSources
 {
     public class DayData
     {
+        private static string[] Day12TestData1 = 
+        {
+            "start-A",
+            "start-b",
+            "A-c",
+            "A-b",
+            "b-d",
+            "A-end",
+            "b-end"
+        };
+        
+        private static string[] Day12TestData2 = 
+        {
+            "dc-end",
+            "HN-start",
+            "start-kj",
+            "dc-start",
+            "dc-HN",
+            "LN-dc",
+            "HN-end",
+            "kj-sa",
+            "kj-HN",
+            "kj-dc"
+        };
+
+        private static string[] Day12TestData3 =
+        {
+            "fs-end",
+            "he-DX",
+            "fs-he",
+            "start-DX",
+            "pj-DX",
+            "end-zg",
+            "zg-sl",
+            "zg-pj",
+            "pj-he",
+            "RW-he",
+            "fs-DX",
+            "pj-RW",
+            "zg-RW",
+            "start-pj",
+            "he-WI",
+            "zg-he",
+            "pj-fs",
+            "start-RW",
+        };
+        
         private List<string[]> TestData { get; } = new List<string[]>
         {
             new []{
@@ -131,7 +178,8 @@ namespace Advent_of_Code.DataSources
                 "6882881134",
                 "4846848554",
                 "5283751526"
-            }
+            },
+            Day12TestData1
         };
         
         public DayData(int dayNumber)

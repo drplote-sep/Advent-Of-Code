@@ -49,6 +49,7 @@
     <Compile Include="DataSources\DayData.cs" />
     <Compile Include="DayRunners\Day10Runner.cs" />
     <Compile Include="DayRunners\Day11Runner.cs" />
+    <Compile Include="DayRunners\Day12Runner.cs" />
     <Compile Include="DayRunners\Day1Runner.cs" />
     <Compile Include="DayRunners\Day2Runner.cs" />
     <Compile Include="DayRunners\Day3Runner.cs" />
