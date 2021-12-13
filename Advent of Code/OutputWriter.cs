@@ -40,5 +40,6 @@ namespace Advent_of_Code
             var whitespace = new string(' ', offset);
             Console.WriteLine($"{whitespace}{s}");
         }
+
     }
 }
