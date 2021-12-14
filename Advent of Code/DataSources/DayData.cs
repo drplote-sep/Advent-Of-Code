@@ -179,7 +179,32 @@ namespace Advent_of_Code.DataSources
                 "4846848554",
                 "5283751526"
             },
-            Day12TestData1
+            Day12TestData1,
+            new[]
+            {
+                ""
+            },
+            new []
+            {
+                "NNCB",
+                "",
+                "CH -> B",
+                "HH -> N",
+                "CB -> H",
+                "NH -> C",
+                "HB -> C",
+                "HC -> B",
+                "HN -> C",
+                "NN -> C",
+                "BH -> H",
+                "NC -> B",
+                "NB -> B",
+                "BN -> B",
+                "BB -> N",
+                "BC -> B",
+                "CC -> N",
+                "CN -> C",
+            }
         };
         
         public DayData(int dayNumber)
