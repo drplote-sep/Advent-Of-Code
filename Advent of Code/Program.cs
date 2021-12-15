@@ -12,7 +12,7 @@ namespace Advent_of_Code
 
             foreach (var dayRunner in GetDayRunners())
             {
-                dayRunner.Go();
+                dayRunner.Go(true);
             }
         }
 
@@ -33,7 +33,8 @@ namespace Advent_of_Code
                 new Day11Runner(new DayData(11)),
                 new Day12Runner(new DayData(12)),
                 new Day13Runner(new DayData(13)),
-				new Day14Runner(new DayData(14))
+				new Day14Runner(new DayData(14)),
+                new Day15Runner(new DayData(15))
             };
         }
     }

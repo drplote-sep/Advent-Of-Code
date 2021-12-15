@@ -52,6 +52,7 @@
     <Compile Include="DayRunners\Day12Runner.cs" />
     <Compile Include="DayRunners\Day14Runner.cs" />
     <Compile Include="DayRunners\Day13Runner.cs" />
+    <Compile Include="DayRunners\Day15Runner.cs" />
     <Compile Include="DayRunners\Day1Runner.cs" />
     <Compile Include="DayRunners\Day2Runner.cs" />
     <Compile Include="DayRunners\Day3Runner.cs" />
@@ -78,6 +79,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="RawInputs\Day 10\input.mos" />
+    <Content Include="RawInputs\Day 11\input.mos" />
+    <Content Include="RawInputs\Day 12\input.mos" />
+    <Content Include="RawInputs\Day 13\input.mos" />
+    <Content Include="RawInputs\Day 14\input.mos" />
     <Content Include="RawInputs\Day 1\input.mos" />
     <Content Include="RawInputs\Day 2\input.mos" />
     <Content Include="RawInputs\Day 3\input.mos" />

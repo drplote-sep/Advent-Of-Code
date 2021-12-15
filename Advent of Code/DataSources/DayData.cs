@@ -180,32 +180,6 @@ namespace Advent_of_Code.DataSources
                 "5283751526"
             },
             Day12TestData1,
-<<<<<<< HEAD
-            new[]
-            {
-                ""
-            },
-            new []
-            {
-                "NNCB",
-                "",
-                "CH -> B",
-                "HH -> N",
-                "CB -> H",
-                "NH -> C",
-                "HB -> C",
-                "HC -> B",
-                "HN -> C",
-                "NN -> C",
-                "BH -> H",
-                "NC -> B",
-                "NB -> B",
-                "BN -> B",
-                "BB -> N",
-                "BC -> B",
-                "CC -> N",
-                "CN -> C",
-=======
             new []
             {
                 "6,10",
@@ -229,7 +203,40 @@ namespace Advent_of_Code.DataSources
                 "",
                 "fold along y=7",
                 "fold along x=5"
->>>>>>> 08b1b9a (Day 13)
+            },
+            new []
+            {
+                "NNCB",
+                "",
+                "CH -> B",
+                "HH -> N",
+                "CB -> H",
+                "NH -> C",
+                "HB -> C",
+                "HC -> B",
+                "HN -> C",
+                "NN -> C",
+                "BH -> H",
+                "NC -> B",
+                "NB -> B",
+                "BN -> B",
+                "BB -> N",
+                "BC -> B",
+                "CC -> N",
+                "CN -> C",
+            },
+            new []
+            {
+                "1163751742",
+                "1381373672",
+                "2136511328",
+                "3694931569",
+                "7463417111",
+                "1319128137",
+                "1359912421",
+                "3125421639",
+                "1293138521",
+                "2311944581"
             }
         };
         
