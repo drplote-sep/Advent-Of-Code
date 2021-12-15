@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
-using System.Dynamic;
 using System.Linq;
+using System.Text;
 using Advent_of_Code.DataSources;
 
 namespace Advent_of_Code.DayRunners
@@ -17,6 +16,7 @@ namespace Advent_of_Code.DayRunners
         public int Distance { get; set; }
         public int CostDistance => Cost + Distance;
         public CaveTile Parent { get; set; }
+        
 
         public void SetDistance(int targetX, int targetY)
         {
@@ -49,8 +49,30 @@ namespace Advent_of_Code.DayRunners
         {
             ParseInputs(data);
 
-            var start = GetTile(0, 0);
-            var finish = GetTile(data.First().Length - 1, data.Length - 1);
+            OutputWriter.WriteResult(1, $"Lowest Risk Path: {FindBestPath()}");
+            ParseInputs(data, 5);
+            OutputWriter.WriteResult(2, $"Lowest Risk Path: {FindBestPath()}");
+        }
+
+        public void PrintTiles()
+        {
+            var sb = new StringBuilder();
+            foreach(var tileGroup in Tiles.GroupBy(t => t.Y).OrderBy(g => g.Key))
+            {
+                foreach(var tile in tileGroup)
+                {
+                    sb.Append(tile.Risk);
+                }
+                sb.Append(System.Environment.NewLine);
+                
+            }
+            OutputWriter.WriteLine(sb.ToString());
+        }
+
+        private int FindBestPath()
+        {
+            var start = Tiles.First();
+            var finish = Tiles.Last();
 
             var activeTiles = new List<CaveTile>();
             activeTiles.Add(start);
@@ -63,9 +85,8 @@ namespace Advent_of_Code.DayRunners
 
                 if (checkTile.X == finish.X && checkTile.Y == finish.Y)
                 {
-                    OutputWriter.WriteResult(1, $"Risk: {checkTile.Cost}");
                     //We can actually loop through the parents of each tile to find our exact path which we will show shortly. 
-                    return;
+                    return checkTile.Cost;
                 }
 
                 visitedTiles.Add(checkTile);
@@ -83,7 +104,7 @@ namespace Advent_of_Code.DayRunners
                     if (activeTiles.Any(x => x.X == walkableTile.X && x.Y == walkableTile.Y))
                     {
                         var existingTile = activeTiles.First(x => x.X == walkableTile.X && x.Y == walkableTile.Y);
-                        if (existingTile.CostDistance > checkTile.CostDistance)
+                        if (existingTile.CostDistance > walkableTile.CostDistance)
                         {
                             activeTiles.Remove(existingTile);
                             activeTiles.Add(walkableTile);
@@ -97,6 +118,7 @@ namespace Advent_of_Code.DayRunners
                 }
             }
 
+            return 0;
         }
 
         public List<CaveTile> GetAdjacentTiles(CaveTile tile)
@@ -116,26 +138,49 @@ namespace Advent_of_Code.DayRunners
             return Tiles.SingleOrDefault(t => t.X == x && t.Y == y);
         }
 
-        private void ParseInputs(string[] data)
+        private void ParseInputs(string[] data, int inputMultiplier = 1)
         {
             Tiles = new List<CaveTile>();
-            var endPoint = new Point(data.First().Length - 1, data.Length - 1);
-            for (int y = 0; y < data.Length; y++)
+            var baseWidth = data.First().Length;
+            var baseHeight = data.Length;
+            var fullWidth = baseWidth * inputMultiplier;
+            var fullHeight = baseHeight * inputMultiplier;
+            var endPoint = new Point(fullWidth - 1, fullHeight - 1);
+            for (int y = 0; y < fullHeight; y++)
             {
-                var line = data[y];
-                for (int x = 0; x < line.Length; x++)
+
+                for (int x = 0; x < fullWidth; x++)
                 {
                     var tile = new CaveTile
                     {
                         X = x,
                         Y = y,
-                        Risk = Convert.ToInt32(char.GetNumericValue(data[y][x]))
+                        Risk = GetRiskValue(data, x, y)
                     };
                     tile.SetDistance(endPoint.X, endPoint.Y);
                     Tiles.Add(tile);
                 }
-
             }
+        }
+
+        private int GetRiskValue(string[] data, int x, int y)
+        {
+            var baseWidth = data.First().Length;
+            var baseHeight = data.Length;
+
+            var fileRisk = Convert.ToInt32(char.GetNumericValue(data[y % baseWidth][x % baseWidth]));
+
+            return WrapRisk(fileRisk + x/baseWidth + y/baseHeight);
+        }
+
+        private int WrapRisk(int risk)
+        {
+            if (risk < 10)
+            {
+                return risk;
+            }
+
+            return WrapRisk(risk - 9);
         }
     }
 }
