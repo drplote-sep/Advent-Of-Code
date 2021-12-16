@@ -5,6 +5,14 @@ namespace Advent_of_Code.DataSources
 {
     public class DayData
     {
+        private static string Day16Test1 = "D2FE28";
+        private static string Day16Test2 = "38006F45291200";
+        private static string Day16Test3 = "EE00D40C823060";
+        private static string Day16Test4 = "8A004A801A8002F478";
+        private static string Day16Test5 = "620080001611562C8802118E34";
+        private static string Day16Test6 = "C0015000016115A2E0802F182340";
+        private static string Day16Test7 = "A0016C880162017C3686B18A3D4780";
+        
         private static string[] Day12TestData1 = 
         {
             "start-A",
@@ -237,6 +245,10 @@ namespace Advent_of_Code.DataSources
                 "3125421639",
                 "1293138521",
                 "2311944581"
+            },
+            new []
+            {
+                Day16Test7
             }
         };
         

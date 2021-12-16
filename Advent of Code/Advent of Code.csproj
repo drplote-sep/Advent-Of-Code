@@ -54,6 +54,7 @@
     <Compile Include="DayRunners\Day14Runner.cs" />
     <Compile Include="DayRunners\Day13Runner.cs" />
     <Compile Include="DayRunners\Day15Runner.cs" />
+    <Compile Include="DayRunners\Day16Runner.cs" />
     <Compile Include="DayRunners\Day1Runner.cs" />
     <Compile Include="DayRunners\Day2Runner.cs" />
     <Compile Include="DayRunners\Day3Runner.cs" />
