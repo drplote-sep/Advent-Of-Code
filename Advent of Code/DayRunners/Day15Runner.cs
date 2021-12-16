@@ -12,7 +12,6 @@ namespace Advent_of_Code.DayRunners
         public int Cost { get; set; }
         public int Distance { get; set; }
         public int CostDistance => Cost + Distance;
-        public CaveTile Parent { get; set; }
 
 
         public void SetDistance(int targetX, int targetY)
@@ -28,6 +27,8 @@ namespace Advent_of_Code.DayRunners
 
     public class Day15Runner : DayRunner
     {
+        public Dictionary<Point, int> gScore { get; set; } = new Dictionary<Point, int>();
+        public Dictionary<Point, int> fScore { get; set; } = new Dictionary<Point, int>();
         public Dictionary<Point, int> Risks { get; set; }
 
         public Day15Runner(DayData data) : base(data)
@@ -43,91 +44,105 @@ namespace Advent_of_Code.DayRunners
             OutputWriter.WriteResult(2, $"Lowest Risk Path: {FindBestPath()}");
         }
 
+        // private int FindBestPath2()
+        // {
+        //     var start = new Point(0, 0);
+        //     var openSet = new List<Point> { start };
+        //
+        //     var cameFrom = new List<Point>();
+        //
+        //     var gScore = new Dictionary<Point, int>
+        //     {
+        //         [start] = 0
+        //     };
+        //
+        //     var fScore = new Dictionary<Point, int>
+        //     {
+        //         [start] = GetDistanceToEnd(start)
+        //     };
+        //
+        //     while (openSet.Any()) // Optimize by making openSet an openHeap or priority queue
+        //     {
+        //         var current = openSet.OrderBy()
+        //     }
+        // }
+
+        private int GetDistanceToEnd(Point p)
+        {
+            return Math.Abs(EndPoint.X - p.X) + Math.Abs(EndPoint.Y - p.Y);
+        }
+
+        private int GetG(Point p)
+        {
+            if (!gScore.ContainsKey(p))
+            {
+                return int.MaxValue;
+            }
+
+            return gScore[p];
+        }
+
+        private int GetF(Point p)
+        {
+            if (!fScore.ContainsKey(p))
+            {
+                return int.MaxValue;
+            }
+
+            return fScore[p];
+        }
+
         private int FindBestPath()
         {
-            var startTile = new CaveTile
+            gScore = new Dictionary<Point, int>();
+            fScore = new Dictionary<Point, int>();
+            
+            var start = new Point (0, 0);
+            
+            var openSet = new HashSet<Point> { start };
+
+            gScore[start] = 0;
+            fScore[start] = GetDistanceToEnd(start);
+
+            while (openSet.Any())
             {
-                Point = new Point(0, 0),
-                Cost = 0
-            };
-            startTile.SetDistance(EndPoint);
+                var current = openSet.OrderBy(GetF).First();
 
-            var endTile = new CaveTile
-            {
-                Point = EndPoint,
-                Cost = Risks[EndPoint]
-            };
-
-            var activeTiles = new List<CaveTile>();
-            activeTiles.Add(startTile);
-
-            var visitedTiles = new List<CaveTile>();
-
-            while (activeTiles.Any())
-            {
-                var checkTile = activeTiles.OrderBy(x => x.CostDistance).First();
-
-                if (checkTile.Point == endTile.Point)
+                if (current == EndPoint)
                 {
-                    //We can actually loop through the parents of each tile to find our exact path which we will show shortly. 
-                    return checkTile.Cost;
+                    return GetG(current);
                 }
+                
+                openSet.Remove(current);
 
-                visitedTiles.Add(checkTile);
-                activeTiles.Remove(checkTile);
+                var neighbors = GetNeighbors(current);
 
-                var adjacentTiles = GetAdjacentTiles(checkTile);
-
-                foreach (var walkableTile in adjacentTiles)
+                foreach (var neighbor in neighbors)
                 {
-                    //We have already visited this tile so we don't need to do so again!
-                    if (visitedTiles.Any(t => t.Point == walkableTile.Point))
-                        continue;
-
-                    //It's already in the active list, but that's OK, maybe this new tile has a better value (e.g. We might zigzag earlier but this is now straighter). 
-                    if (activeTiles.Any(t => t.Point == walkableTile.Point))
+                    var tentativeG = GetG(current) + Risks[neighbor];
+                    if (tentativeG < GetG(neighbor))
                     {
-                        var existingTile = activeTiles.First(t => t.Point == walkableTile.Point);
-                        if (existingTile.CostDistance > walkableTile.CostDistance)
-                        {
-                            activeTiles.Remove(existingTile);
-                            activeTiles.Add(walkableTile);
-                        }
-                    }
-                    else
-                    {
-                        //We've never seen this tile before so add it to the list. 
-                        activeTiles.Add(walkableTile);
+                        gScore[neighbor] = tentativeG;
+                        fScore[neighbor] = tentativeG + GetDistanceToEnd(neighbor);
+                        openSet.Add(neighbor);
                     }
                 }
             }
 
-            return 0;
+            return -1;
         }
 
-        public List<CaveTile> GetAdjacentTiles(CaveTile currentTile)
+        public List<Point> GetNeighbors(Point p)
         {
             var adjacentPoints = new List<Point>
             {
-                new Point(currentTile.Point.X, currentTile.Point.Y - 1),
-                new Point(currentTile.Point.X, currentTile.Point.Y + 1),
-                new Point(currentTile.Point.X - 1, currentTile.Point.Y),
-                new Point(currentTile.Point.X + 1, currentTile.Point.Y),
+                new Point(p.X, p.Y - 1),
+                new Point(p.X, p.Y + 1),
+                new Point(p.X - 1, p.Y),
+                new Point(p.X + 1, p.Y),
             };
 
-            var adjacentTiles = adjacentPoints.Where(Risks.ContainsKey).Select(p =>
-            {
-                var tile = new CaveTile
-                {
-                    Point = p,
-                    Parent = currentTile,
-                    Cost = currentTile.Cost + Risks[p]
-                };
-                tile.SetDistance(EndPoint);
-                return tile;
-            });
-
-            return adjacentTiles.ToList();
+            return adjacentPoints.Where(Risks.ContainsKey).ToList();
         }
 
         private void ParseInputs(string[] data, int inputMultiplier = 1)
