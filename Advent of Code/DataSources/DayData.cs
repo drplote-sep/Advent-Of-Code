@@ -249,6 +249,10 @@ namespace Advent_of_Code.DataSources
             new []
             {
                 Day16Test7
+            },
+            new []
+            {
+                "target area: x=20..30, y=-10..-5"
             }
         };
         
