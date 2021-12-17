@@ -6,29 +6,32 @@ using Advent_of_Code.DataSources;
 
 namespace Advent_of_Code.DayRunners
 {
-    public class CaveTile
+    class PriorityQueue<TItem, TPriority> where TPriority : IComparable
     {
-        public Point Point { get; set; }
-        public int Cost { get; set; }
-        public int Distance { get; set; }
-        public int CostDistance => Cost + Distance;
+        private SortedList<TPriority, Queue<TItem>> pq = new SortedList<TPriority, Queue<TItem>>();
+        public int Count { get; private set; }
 
-
-        public void SetDistance(int targetX, int targetY)
+        public void Enqueue(TItem item, TPriority priority)
         {
-            Distance = Math.Abs(targetX - Point.X) + Math.Abs(targetY - Point.Y);
+            ++Count;
+            if (!pq.ContainsKey(priority)) pq[priority] = new Queue<TItem>();
+            pq[priority].Enqueue(item);
         }
 
-        public void SetDistance(Point p)
+        public TItem Dequeue()
         {
-            SetDistance(p.X, p.Y);
+            --Count;
+            var queue = pq.ElementAt(0).Value;
+            if (queue.Count == 1) pq.RemoveAt(0);
+            return queue.Dequeue();
         }
+
+        public bool Any() => Count > 0;
     }
-
+    
     public class Day15Runner : DayRunner
     {
         public Dictionary<Point, int> gScore { get; set; } = new Dictionary<Point, int>();
-        public Dictionary<Point, int> fScore { get; set; } = new Dictionary<Point, int>();
         public Dictionary<Point, int> Risks { get; set; }
 
         public Day15Runner(DayData data) : base(data)
@@ -43,29 +46,6 @@ namespace Advent_of_Code.DayRunners
             ParseInputs(data, 5);
             OutputWriter.WriteResult(2, $"Lowest Risk Path: {FindBestPath()}");
         }
-
-        // private int FindBestPath2()
-        // {
-        //     var start = new Point(0, 0);
-        //     var openSet = new List<Point> { start };
-        //
-        //     var cameFrom = new List<Point>();
-        //
-        //     var gScore = new Dictionary<Point, int>
-        //     {
-        //         [start] = 0
-        //     };
-        //
-        //     var fScore = new Dictionary<Point, int>
-        //     {
-        //         [start] = GetDistanceToEnd(start)
-        //     };
-        //
-        //     while (openSet.Any()) // Optimize by making openSet an openHeap or priority queue
-        //     {
-        //         var current = openSet.OrderBy()
-        //     }
-        // }
 
         private int GetDistanceToEnd(Point p)
         {
@@ -82,49 +62,35 @@ namespace Advent_of_Code.DayRunners
             return gScore[p];
         }
 
-        private int GetF(Point p)
-        {
-            if (!fScore.ContainsKey(p))
-            {
-                return int.MaxValue;
-            }
-
-            return fScore[p];
-        }
-
         private int FindBestPath()
         {
             gScore = new Dictionary<Point, int>();
-            fScore = new Dictionary<Point, int>();
             
             var start = new Point (0, 0);
-            
-            var openSet = new HashSet<Point> { start };
+
+            var openSet = new PriorityQueue<Point, int>();
+            openSet.Enqueue(start, GetDistanceToEnd(start));
 
             gScore[start] = 0;
-            fScore[start] = GetDistanceToEnd(start);
 
             while (openSet.Any())
             {
-                var current = openSet.OrderBy(GetF).First();
-
-                if (current == EndPoint)
-                {
-                    return GetG(current);
-                }
-                
-                openSet.Remove(current);
+                var current = openSet.Dequeue();
 
                 var neighbors = GetNeighbors(current);
 
                 foreach (var neighbor in neighbors)
                 {
+                    if (neighbor == EndPoint)
+                    {
+                        return GetG(current) + Risks[EndPoint];
+                    }
+                    
                     var tentativeG = GetG(current) + Risks[neighbor];
                     if (tentativeG < GetG(neighbor))
                     {
                         gScore[neighbor] = tentativeG;
-                        fScore[neighbor] = tentativeG + GetDistanceToEnd(neighbor);
-                        openSet.Add(neighbor);
+                        openSet.Enqueue(neighbor, tentativeG + GetDistanceToEnd(neighbor));
                     }
                 }
             }

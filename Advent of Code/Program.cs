@@ -12,7 +12,7 @@ namespace Advent_of_Code
 
             foreach (var dayRunner in GetDayRunners())
             {
-                dayRunner.Go(true);
+                dayRunner.Go(false);
             }
         }
 
